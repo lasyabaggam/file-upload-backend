@@ -34,10 +34,10 @@ class FileContent
         return $this->id;
     }
 
-    public function getFile(): ?File
-    {
-        return $this->file;
-    }
+    // public function getFile(): ?File
+    // {
+    //     return $this->file;
+    // }
 
     public function setFile(?File $file): static
     {
