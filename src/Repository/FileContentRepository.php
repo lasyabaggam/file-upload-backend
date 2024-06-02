@@ -17,7 +17,7 @@ class FileContentRepository extends ServiceEntityRepository
         parent::__construct($registry, FileContent::class);
     }
 
-    public function findWithPagination(int $file_id, int $page, int $limit, string $sort, string $search): array
+    public function findWithPagination(int $file_id, int $page, int $limit, string $sort, string $search = null): array
     {
         $queryBuilder = $this->createQueryBuilder('fc')
                              ->andWhere('fc.file = :file_id')
