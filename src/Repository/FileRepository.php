@@ -27,11 +27,13 @@ class FileRepository extends ServiceEntityRepository
         $queryBuilder->setFirstResult(($page - 1) * $limit)->setMaxResults($limit);
 
         $paginator = new Paginator($queryBuilder->getQuery());
+        $total = $paginator->count();
 
         return [
-            'total' => $paginator->count(),
+            'total' => $total,
             'per_page' => $limit,
             'current_page' => $page,
+            'total_pages' => ceil($total / $limit),
             'data' => iterator_to_array($paginator),
         ];
     }
