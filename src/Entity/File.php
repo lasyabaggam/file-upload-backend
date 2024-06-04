@@ -79,10 +79,10 @@ class File
     /**
      * @return Collection<int, FileContent>
      */
-    public function getFileContents(): Collection
-    {
-        return $this->fileContents;
-    }
+    // public function getFileContents(): Collection
+    // {
+    //    return $this->fileContents;
+    // }
 
     public function addFileContent(FileContent $fileContent): static
     {

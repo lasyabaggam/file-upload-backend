@@ -19,7 +19,7 @@ class FileUploadService
         $this->entityManager = $entityManager;
     }
 
-    public function handleFileUpload(UploadedFile $file): void
+    public function handleFileUpload(UploadedFile $file)
     {
         $fileName = $file->getClientOriginalName();
         $csv = Reader::createFromPath($file->getRealPath(), 'r');
@@ -43,5 +43,7 @@ class FileUploadService
         }
 
         $this->entityManager->flush();
+
+        return $fileEntity->getId();
     }
 }

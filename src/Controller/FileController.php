@@ -29,9 +29,9 @@ class FileController extends AbstractController
     public function index(Request $request): JsonResponse
     {
         $page = (int) $request->query->get('page', 1);
-        $limit = (int) $request->query->get('limit', 10);
-        $sort = $request->query->get('sort', 'created_at:asc');
-        
+        $limit = (int) $request->query->get('limit', 1000);
+        $sort = $request->query->get('sort', 'created_at:desc');
+
         $repository = $this->interface->getRepository(File::class);
         $files = $repository->findWithPagination($page, $limit, $sort);
 
@@ -48,13 +48,15 @@ class FileController extends AbstractController
         // if ($mimeType !== 'text/csv') return $this->json(['error' => 'Invalid file type']);
 
         try {
-            $this->fileUploadService->handleFileUpload($file);
+            $file_id = $this->fileUploadService->handleFileUpload($file);
         } catch (\Exception $e) {
-            dd($e);
             return $this->json(['error' => $e->getMessage()]);
         }
 
-        return $this->json(['message' => 'File uploaded successfully']);
+        return $this->json([
+            'file_id'=> $file_id,
+            'message' => 'File uploaded successfully'
+        ]);
     }
 
     #[Route('/files/{file_id}/contents', name: 'file_contents', methods: 'GET')]
@@ -66,7 +68,7 @@ class FileController extends AbstractController
         if (!$file) return $this->json(['error' => 'No file found']);
 
         $page = (int) $request->query->get('page', 1);
-        $limit = (int) $request->query->get('limit', 10);
+        $limit = (int) $request->query->get('limit', 100000);
         $sort = $request->query->get('sort', 'id:asc');
         $search = $request->query->get('search');
 
