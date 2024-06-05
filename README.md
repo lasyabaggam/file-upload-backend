@@ -6,7 +6,7 @@ Run `composer install` to install the dependencies
 
 ## Update .env
 
-Update DATABASE_URL
+Update `DATABASE_URL`
 
 ## Generate JWT secret key files
 
