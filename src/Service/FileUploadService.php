@@ -5,26 +5,20 @@ namespace App\Service;
 
 use App\Entity\File;
 use DateTimeImmutable;
-use League\Csv\Reader;
 use App\Entity\FileContent;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileUploadService
 {
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, FileValidatorService $validator)
     {
         $this->entityManager = $entityManager;
     }
 
-    public function handleFileUpload(UploadedFile $file)
-    {
-        $fileName = $file->getClientOriginalName();
-        $csv = Reader::createFromPath($file->getRealPath(), 'r');
-        $csv->setHeaderOffset(0);
-
+    public function handleFileUpload($csv, string $fileName)
+    {   
         $fileEntity = new File();
         $fileEntity->setFileName($fileName);
         $fileEntity->setTotalRows($csv->count());

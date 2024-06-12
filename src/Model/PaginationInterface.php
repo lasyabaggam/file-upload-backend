@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-interface FileInterface
+interface PaginationInterface
 {
     public function findWithPagination(FileDto $data): array;
 }

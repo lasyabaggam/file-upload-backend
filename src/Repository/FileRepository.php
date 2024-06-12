@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\File;
 use App\Model\FileDto;
-use App\Model\FileInterface;
+use App\Model\PaginationInterface;
 use App\Repository\Traits\FetchRecordsTrait;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -12,7 +12,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 /**
  * @extends ServiceEntityRepository<File>
  */
-class FileRepository extends ServiceEntityRepository implements FileInterface
+class FileRepository extends ServiceEntityRepository implements PaginationInterface
 {
     use FetchRecordsTrait;
 
